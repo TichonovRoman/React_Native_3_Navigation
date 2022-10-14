@@ -9,7 +9,9 @@ export const HomeScreen = () => {
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green'}}>
             <Text>Home Screen</Text>
-            <Button title={'step details'} onPress={()=>{navigation.navigate('Details')}}/>
+            <Button title={'step details'} onPress={()=>{navigation.navigate('Details',
+                // {id: 120, name: 'fgfgfg'}
+            )}}/>
         </View>
     );
 }
