@@ -1,8 +1,9 @@
-import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {NavigationProp, NavigatorScreenParams, useNavigation} from "@react-navigation/native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 
-export type RootStackParamList = {
-    Home: undefined,
+export type RootTabParamList = {
+    //а это мы указываем, что внутри Home будет еще онда навигация и уточняем ее тип RootStackParamList
+    Home: NavigatorScreenParams<RootStackParamList>,
     //при переходе на "Details" в него должны передасться след. параметры:
     Details: undefined
 // {
@@ -12,11 +13,18 @@ export type RootStackParamList = {
     Users: undefined
 }
 
+export type RootStackParamList = {
+    ButtonScreen: undefined,
+    Reg: undefined,
+    Login: undefined,
+    Forgot: undefined
+}
+
 //типизация пропсов для водных параметров
 
-export type DetailsPropsType = NativeStackScreenProps<RootStackParamList, 'Details'>
+export type DetailsPropsType = NativeStackScreenProps<RootTabParamList, 'Details'>
 
 // uswAppNavigation hook helper
-type UseNavigationType = NavigationProp<RootStackParamList>
+type UseNavigationType = NavigationProp<RootTabParamList>
 
-export const uswAppNavigation = () => useNavigation<UseNavigationType>()
+export const useAppNavigation = () => useNavigation<UseNavigationType>()
