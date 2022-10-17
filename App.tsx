@@ -1,5 +1,7 @@
 import {Main} from "./src/screens/Main";
 import {NavigationContainer} from "@react-navigation/native";
+import {Provider} from "react-redux";
+import {store} from "./src/store/store";
 
 
 // <NavigationContainer> оборачиваем здесь, на верхнем уровне и всю локигу апп прячем в компонент мейн
@@ -8,7 +10,9 @@ import {NavigationContainer} from "@react-navigation/native";
 export default function App() {
     return (
         <NavigationContainer>
-            <Main/>
+            <Provider store={store}>
+                <Main/>
+            </Provider>
         </NavigationContainer>
     );
 }

@@ -1,32 +1,81 @@
 import {Button, Text, TextInput, View} from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import {RootStackParamList, RootTabParamList, useAppNavigation} from "../types/types";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {setLoginAC, setPasswordAC} from "../../store/main-reducer";
 
 const Reg = () => {
     const navigation = useAppNavigation()
+    const dispatch = useAppDispatch()
+
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
+
+    const goLogin = () => {
+        dispatch(setLoginAC(login))
+        dispatch(setPasswordAC(password))
+        navigation.navigate('Home', {screen: 'Login'})
+        //более глубокая вложенность
+        // navigation.navigate('Home', {screen: 'Login', params: {screen: 'Forgot'}})
+
+    }
+
     return <View style={{alignItems: 'center'}}>
-        <Text >Registration</Text>
+        <Text>Registration</Text>
         <TextInput
-            style={{width: 230, height: 28, fontSize: 25, borderWidth: 1}}
-            value={''}
-            onChangeText={()=>{}}
+            style={{width: 230, height: 28, fontSize: 25, backgroundColor: 'white', borderWidth: 1}}
+            value={login}
+            onChangeText={setLogin}
         />
         <TextInput
-            style={{width: 230, height: 28, fontSize: 25, borderWidth: 1}}
-            value={''}
-            onChangeText={()=>{}}
+            style={{width: 230, height: 28, fontSize: 25, backgroundColor: 'white', borderWidth: 1}}
+            value={password}
+            onChangeText={setPassword}
         />
-        <Button title={'step Login'} onPress={() => navigation.navigate('Home', {screen: 'Login'})}/>
+        <Button title={'Registration'} onPress={goLogin}/>
         {/*//('Home', {screen: 'Login'}) это значит, что находясь в Home мы прыгаем в Login*/}
     </View>
 }
 const Login = () => {
     const navigation = useAppNavigation()
+    const login = useAppSelector(state=> state.main.login)
+    const password = useAppSelector(state=> state.main.password)
+
+    const [login_, setLogin] = useState('')
+    const [password_, setPassword] = useState('')
+
+    const [error, setError] = useState('')
+    const goUsersInfo = () => {
+        if(login != login_) {
+            setError('error')
+            return
+        }
+        if (password != password_) {
+            setError('error')
+            return
+        }
+        navigation.navigate('Users')
+        setError('')
+    }
+
     return <View>
-        <Text>Login</Text>
-        <Button title={'step'} onPress={() => () => navigation.navigate('Home', {screen: 'Forgot'})}/>
+        <Text>Login: {login} </Text>
+        <Text>Password: {password}</Text>
+        {error && <Text style={{color: 'red'}}>{error}</Text>}
+
+        <TextInput
+            style={{width: 230, height: 28, fontSize: 25, backgroundColor: 'white', borderWidth: 1}}
+            value={login_}
+            onChangeText={setLogin}
+        />
+        <TextInput
+            style={{width: 230, height: 28, fontSize: 25, backgroundColor: 'white', borderWidth: 1}}
+            value={password_}
+            onChangeText={setPassword}
+        />
+        <Button title={'step'} onPress={goUsersInfo}/>
     </View>
 }
 const Forgot = () => {

@@ -1,7 +1,7 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 
-const setLogin = createAction<string>('main-reducer/setLogin')
-const setPassword = createAction<string>('main-reducer/setPassword')
+export const setLoginAC = createAction<string>('main-reducer/setLogin')
+export const setPasswordAC = createAction<string>('main-reducer/setPassword')
 
 const slice = createSlice({
     name: 'main-reducer',
@@ -11,10 +11,10 @@ const slice = createSlice({
     },
     reducers: {},
     extraReducers: (builder)=>{
-        builder.addCase(setLogin,(state, action)=>{
+        builder.addCase(setLoginAC,(state, action)=>{
             state.login = action.payload
         })
-        builder.addCase(setPassword,(state, action)=>{
+        builder.addCase(setPasswordAC,(state, action)=>{
             state.password = action.payload
         })
     }

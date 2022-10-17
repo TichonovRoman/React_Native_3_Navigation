@@ -16,7 +16,10 @@ export type RootTabParamList = {
 export type RootStackParamList = {
     ButtonScreen: undefined,
     Reg: undefined,
-    Login: undefined,
+    Login: NavigatorScreenParams<RootStackParamList2> | undefined,
+    Forgot: undefined
+}
+export type RootStackParamList2 = {
     Forgot: undefined
 }
 
